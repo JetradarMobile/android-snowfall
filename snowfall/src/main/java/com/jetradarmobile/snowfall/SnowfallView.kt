@@ -30,14 +30,14 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
   private val DEFAULT_SNOWFLAKE_ALPHA_MAX = 250
   private val DEFAULT_SNOWFLAKE_SIZE_MIN_IN_DP = 2
   private val DEFAULT_SNOWFLAKE_SIZE_MAX_IN_DP = 8
-  private val DEFAULT_SNOWFLAKE_FADEOUT = false
+  private val DEFAULT_SNOWFLAKE_FADING_ENABLED = false
 
   private val snowflakesNum: Int
   private val snowflakeAlphaMin: Int
   private val snowflakeAlphaMax: Int
   private val snowflakeSizeMinInPx: Int
   private val snowflakeSizeMaxInPx: Int
-  private val snowflakeFadeout: Boolean
+  private val snowflakeFadingEnabled: Boolean
 
   private val snowflakes: MutableList<Snowflake>
   private val updateThread by lazy { UpdateThread() }
@@ -46,12 +46,12 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
     updateThread.start()
 
     val a = context.obtainStyledAttributes(attrs, R.styleable.SnowfallView)
-    snowflakesNum = a.getInt(R.styleable.SnowfallView_snowflakes_num, DEFAULT_SNOWFLAKES_NUM)
-    snowflakeAlphaMin = a.getInt(R.styleable.SnowfallView_snowflake_alpha_min, DEFAULT_SNOWFLAKE_ALPHA_MIN)
-    snowflakeAlphaMax = a.getInt(R.styleable.SnowfallView_snowflake_alpha_max, DEFAULT_SNOWFLAKE_ALPHA_MAX)
-    snowflakeSizeMinInPx = a.getDimensionPixelSize(R.styleable.SnowfallView_snowflake_size_min, dpToPx(DEFAULT_SNOWFLAKE_SIZE_MIN_IN_DP))
-    snowflakeSizeMaxInPx = a.getDimensionPixelSize(R.styleable.SnowfallView_snowflake_size_max, dpToPx(DEFAULT_SNOWFLAKE_SIZE_MAX_IN_DP))
-    snowflakeFadeout = a.getBoolean(R.styleable.SnowfallView_snowflake_fadeout, DEFAULT_SNOWFLAKE_FADEOUT)
+    snowflakesNum = a.getInt(R.styleable.SnowfallView_snowflakesNum, DEFAULT_SNOWFLAKES_NUM)
+    snowflakeAlphaMin = a.getInt(R.styleable.SnowfallView_snowflakeAlphaMin, DEFAULT_SNOWFLAKE_ALPHA_MIN)
+    snowflakeAlphaMax = a.getInt(R.styleable.SnowfallView_snowflakeAlphaMax, DEFAULT_SNOWFLAKE_ALPHA_MAX)
+    snowflakeSizeMinInPx = a.getDimensionPixelSize(R.styleable.SnowfallView_snowflakeSizeMin, dpToPx(DEFAULT_SNOWFLAKE_SIZE_MIN_IN_DP))
+    snowflakeSizeMaxInPx = a.getDimensionPixelSize(R.styleable.SnowfallView_snowflakeSizeMax, dpToPx(DEFAULT_SNOWFLAKE_SIZE_MAX_IN_DP))
+    snowflakeFadingEnabled = a.getBoolean(R.styleable.SnowfallView_snowflakeFadingEnabled, DEFAULT_SNOWFLAKE_FADING_ENABLED)
     a.recycle()
 
     snowflakes = ArrayList(snowflakesNum)
@@ -71,7 +71,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
     val speed = size / 3
     val angle = 0F
     val alpha = random(snowflakeAlphaMin, snowflakeAlphaMax)
-    return Snowflake(position = position, size = size, speed = speed, angle = angle, alpha = alpha, fadeout = snowflakeFadeout)
+    return Snowflake(position = position, size = size, speed = speed, angle = angle, alpha = alpha, fadingEnabled = snowflakeFadingEnabled)
   }
 
   private fun random(min: Int, max: Int): Int {

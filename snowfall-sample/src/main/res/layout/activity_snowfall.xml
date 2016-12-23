@@ -10,11 +10,11 @@
   <com.jetradarmobile.snowfall.SnowfallView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      app:snowflakes_num="150"
-      app:snowflake_fadeout="false"
-      app:snowflake_alpha_min="150"
-      app:snowflake_alpha_max="250"
-      app:snowflake_size_min="2dp"
-      app:snowflake_size_max="8dp"/>
+      app:snowflakesNum="150"
+      app:snowflakeAlphaMin="150"
+      app:snowflakeAlphaMax="250"
+      app:snowflakeSizeMin="2dp"
+      app:snowflakeSizeMax="8dp"
+      app:snowflakeFadingEnabled="false"/>
 
 </FrameLayout>

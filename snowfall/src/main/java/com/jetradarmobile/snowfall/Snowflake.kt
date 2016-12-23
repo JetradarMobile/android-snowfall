@@ -23,7 +23,7 @@ import android.graphics.Paint.Style
 import android.graphics.Point
 import java.util.Random
 
-internal class Snowflake(val position: Point, val size: Int, val speed: Int, val angle: Float, val alpha: Int, val fadeout: Boolean) {
+internal class Snowflake(val position: Point, val size: Int, val speed: Int, val angle: Float, val alpha: Int, val fadingEnabled: Boolean) {
   private val paint by lazy {
     Paint(Paint.ANTI_ALIAS_FLAG).apply {
       color = Color.rgb(255, 255, 255)
@@ -40,7 +40,7 @@ internal class Snowflake(val position: Point, val size: Int, val speed: Int, val
       y = -size - 1
     }
 
-    if (fadeout) {
+    if (fadingEnabled) {
       paint.alpha = (alpha * ((height.toFloat() - y.toFloat()) / (height.toFloat()))).toInt()
     }
 
