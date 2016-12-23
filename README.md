@@ -5,8 +5,6 @@ Android-Snowfall
 
 Implementation of Snowfall view.
 
-![image](https://raw.githubusercontent.com/JetradarMobile/android-snowfall/master/art/img_promo.jpg)
-
 
 Compatibility
 -------------
