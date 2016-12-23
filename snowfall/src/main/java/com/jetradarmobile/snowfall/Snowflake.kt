@@ -24,6 +24,8 @@ import android.graphics.Point
 import java.util.Random
 
 internal class Snowflake(val position: Point, val size: Int, val speed: Int, val angle: Float, val alpha: Int, val fadingEnabled: Boolean) {
+  private var speedX: Int = 0
+  private var speedY: Int = 0
   private val paint by lazy {
     Paint(Paint.ANTI_ALIAS_FLAG).apply {
       color = Color.rgb(255, 255, 255)
