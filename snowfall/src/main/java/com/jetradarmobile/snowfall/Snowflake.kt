@@ -32,10 +32,15 @@ internal class Snowflake(val position: Point, val size: Int, val speed: Int, val
     }
   }
 
+  init {
+    calculateSpeed()
+  }
+
   fun update(width: Int, height: Int) {
-    var x = position.x
-    var y = position.y + speed
+    var x = position.x + speedX
+    var y = position.y + speedY
     if (y > height) {
+      calculateSpeed()
       x = Random().nextInt(width)
       y = -size - 1
     }
@@ -47,7 +52,20 @@ internal class Snowflake(val position: Point, val size: Int, val speed: Int, val
     position.set(x, y)
   }
 
+  fun calculateSpeed() {
+    speedX = (speed * Math.sin(angle())).toInt()
+    speedY = (speed * Math.cos(angle())).toInt()
+    if (speedY == 0) {
+      speedY++
+    }
+  }
+
   fun draw(canvas: Canvas) {
     canvas.drawCircle(position.x.toFloat(), position.y.toFloat(), size.toFloat(), paint)
+  }
+
+  private fun angle(): Double {
+    val angle = Random().nextInt(30) - 15
+    return Math.toRadians(angle.toDouble())
   }
 }
