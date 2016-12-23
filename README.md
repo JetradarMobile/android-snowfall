@@ -35,6 +35,22 @@ dependencies {
 ```
 
 
+Usage
+-----
+
+```xml
+<com.jetradarmobile.snowfall.SnowfallView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:snowflakesNum="150"
+      app:snowflakeAlphaMin="150"
+      app:snowflakeAlphaMax="250"
+      app:snowflakeSizeMin="2dp"
+      app:snowflakeSizeMax="8dp"
+      app:snowflakeFadingEnabled="false"/>
+```
+
+
 License
 -------
 
