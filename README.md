@@ -3,7 +3,9 @@ Android-Snowfall
 
 [![Release](https://jitpack.io/v/jetradarmobile/android-snowfall.svg)](https://jitpack.io/#jetradarmobile/android-snowfall)
 
-Implementation of Snowfall view.
+Fully customizable implementation of "Snowfall View" on Android.
+
+![image](https://raw.githubusercontent.com/JetradarMobile/android-snowfall/master/art/snowfall-demo.gif)
 
 
 Compatibility
@@ -30,7 +32,7 @@ Add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.jetradarmobile:android-snowfall:1.0.0'
+    compile 'com.github.jetradarmobile:android-snowfall:1.1.0'
 }
 ```
 
@@ -38,16 +40,30 @@ dependencies {
 Usage
 -----
 
+Default implementation with round snowflakes:
+
+```xml
+<com.jetradarmobile.snowfall.SnowfallView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+```
+
+Fully customized implementation:
+
 ```xml
 <com.jetradarmobile.snowfall.SnowfallView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      app:snowflakesNum="150"
-      app:snowflakeAlphaMin="150"
+      app:snowflakesNum="250"
+      app:snowflakeAlphaMin="200"
       app:snowflakeAlphaMax="250"
-      app:snowflakeSizeMin="2dp"
-      app:snowflakeSizeMax="8dp"
-      app:snowflakeFadingEnabled="false"/>
+      app:snowflakeAngleMax="5"
+      app:snowflakeSizeMin="8dp"
+      app:snowflakeSizeMax="32dp"
+      app:snowflakeSpeedMin="4"
+      app:snowflakeSpeedMax="12"
+      app:snowflakeFadingEnabled="true"
+      app:snowflakeImage="@drawable/snowflake"/>
 ```
 
 

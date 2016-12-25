@@ -14,10 +14,10 @@
       app:snowflakeAlphaMin="200"
       app:snowflakeAlphaMax="250"
       app:snowflakeAngleMax="5"
-      app:snowflakeSizeMin="6dp"
-      app:snowflakeSizeMax="24dp"
+      app:snowflakeSizeMin="8dp"
+      app:snowflakeSizeMax="32dp"
       app:snowflakeSpeedMin="4"
-      app:snowflakeSpeedMax="8"
+      app:snowflakeSpeedMax="12"
       app:snowflakeFadingEnabled="true"
       app:snowflakeImage="@drawable/snowflake"/>
 
