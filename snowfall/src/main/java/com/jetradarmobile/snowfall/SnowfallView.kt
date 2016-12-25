@@ -17,73 +17,71 @@
 package com.jetradarmobile.snowfall
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Point
 import android.util.AttributeSet
 import android.view.View
 import java.util.ArrayList
-import java.util.Random
 
 class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs) {
-  private val DEFAULT_SNOWFLAKES_NUM = 150
+  private val DEFAULT_SNOWFLAKES_NUM = 200
   private val DEFAULT_SNOWFLAKE_ALPHA_MIN = 150
   private val DEFAULT_SNOWFLAKE_ALPHA_MAX = 250
+  private val DEFAULT_SNOWFLAKE_ANGLE_MAX = 10
   private val DEFAULT_SNOWFLAKE_SIZE_MIN_IN_DP = 2
   private val DEFAULT_SNOWFLAKE_SIZE_MAX_IN_DP = 8
+  private val DEFAULT_SNOWFLAKE_SPEED_MIN = 2
+  private val DEFAULT_SNOWFLAKE_SPEED_MAX = 8
   private val DEFAULT_SNOWFLAKE_FADING_ENABLED = false
 
   private val snowflakesNum: Int
+  private val snowflakeImage: Bitmap?
   private val snowflakeAlphaMin: Int
   private val snowflakeAlphaMax: Int
+  private val snowflakeAngleMax: Int
   private val snowflakeSizeMinInPx: Int
   private val snowflakeSizeMaxInPx: Int
+  private val snowflakeSpeedMin: Int
+  private val snowflakeSpeedMax: Int
   private val snowflakeFadingEnabled: Boolean
 
   private val snowflakes: MutableList<Snowflake>
-  private val updateThread by lazy { UpdateThread() }
+  private val updateSnowflakesThread: UpdateSnowflakesThread
 
   init {
-    updateThread.start()
-
     val a = context.obtainStyledAttributes(attrs, R.styleable.SnowfallView)
     snowflakesNum = a.getInt(R.styleable.SnowfallView_snowflakesNum, DEFAULT_SNOWFLAKES_NUM)
+    snowflakeImage = a.getDrawable(R.styleable.SnowfallView_snowflakeImage)?.toBitmap()
     snowflakeAlphaMin = a.getInt(R.styleable.SnowfallView_snowflakeAlphaMin, DEFAULT_SNOWFLAKE_ALPHA_MIN)
     snowflakeAlphaMax = a.getInt(R.styleable.SnowfallView_snowflakeAlphaMax, DEFAULT_SNOWFLAKE_ALPHA_MAX)
+    snowflakeAngleMax = a.getInt(R.styleable.SnowfallView_snowflakeAngleMax, DEFAULT_SNOWFLAKE_ANGLE_MAX)
     snowflakeSizeMinInPx = a.getDimensionPixelSize(R.styleable.SnowfallView_snowflakeSizeMin, dpToPx(DEFAULT_SNOWFLAKE_SIZE_MIN_IN_DP))
     snowflakeSizeMaxInPx = a.getDimensionPixelSize(R.styleable.SnowfallView_snowflakeSizeMax, dpToPx(DEFAULT_SNOWFLAKE_SIZE_MAX_IN_DP))
+    snowflakeSpeedMin = a.getInt(R.styleable.SnowfallView_snowflakeSpeedMin, DEFAULT_SNOWFLAKE_SPEED_MIN)
+    snowflakeSpeedMax = a.getInt(R.styleable.SnowfallView_snowflakeSpeedMax, DEFAULT_SNOWFLAKE_SPEED_MAX)
     snowflakeFadingEnabled = a.getBoolean(R.styleable.SnowfallView_snowflakeFadingEnabled, DEFAULT_SNOWFLAKE_FADING_ENABLED)
     a.recycle()
 
     snowflakes = ArrayList(snowflakesNum)
-  }
 
-  override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-    super.onSizeChanged(w, h, oldw, oldh)
-    if (w != oldw || h != oldh) {
-      snowflakes.clear()
-      snowflakes.addAll(Array(snowflakesNum, { createSnowflake() }))
-    }
-  }
-
-  private fun createSnowflake(): Snowflake {
-    val position = Point(random(width), random(height))
-    val size = random(snowflakeSizeMinInPx, snowflakeSizeMaxInPx)
-    val speed = size / 3
-    val angle = 0F
-    val alpha = random(snowflakeAlphaMin, snowflakeAlphaMax)
-    return Snowflake(position = position, size = size, speed = speed, angle = angle, alpha = alpha, fadingEnabled = snowflakeFadingEnabled)
-  }
-
-  private fun random(min: Int, max: Int): Int {
-    return random(max - min + 1) + min
-  }
-
-  private fun random(max: Int): Int {
-    return Random().nextInt(max)
+    updateSnowflakesThread = UpdateSnowflakesThread()
+    updateSnowflakesThread.start()
   }
 
   private fun dpToPx(dp: Int): Int {
     return (dp * resources.displayMetrics.density).toInt()
+  }
+
+  override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+    super.onSizeChanged(w, h, oldw, oldh)
+    snowflakes.clear()
+    val snowflakeParams = Snowflake.Params(
+        parentWidth = width, parentHeight = height, image = snowflakeImage,
+        alphaMin = snowflakeAlphaMin, alphaMax = snowflakeAlphaMax, angleMax = snowflakeAngleMax,
+        sizeMinInPx = snowflakeSizeMinInPx, sizeMaxInPx = snowflakeSizeMaxInPx,
+        speedMin = snowflakeSpeedMin, speedMax = snowflakeSpeedMax,
+        fadingEnabled = snowflakeFadingEnabled)
+    snowflakes.addAll(Array(snowflakesNum, { Snowflake(snowflakeParams) }))
   }
 
   override fun onDraw(canvas: Canvas) {
@@ -91,13 +89,13 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
     snowflakes.forEach { it.draw(canvas) }
   }
 
-  private inner class UpdateThread : Thread() {
+  private inner class UpdateSnowflakesThread : Thread() {
     private val FPS = 10L
 
     override fun run() {
       while (true) {
         try { Thread.sleep(FPS) } catch (ignored: InterruptedException) {}
-        snowflakes.forEach { it.update(width, height) }
+        snowflakes.forEach { it.update() }
         postInvalidateOnAnimation()
       }
     }

@@ -16,58 +16,85 @@
 
 package com.jetradarmobile.snowfall
 
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Paint.Style
-import android.graphics.Point
-import java.util.Random
+import java.lang.Math.cos
+import java.lang.Math.sin
+import java.lang.Math.toRadians
 
-internal class Snowflake(val position: Point, val size: Int, val speed: Int, val angle: Float, val alpha: Int, val fadingEnabled: Boolean) {
-  private var speedX: Int = 0
-  private var speedY: Int = 0
+internal class Snowflake(val params: Params) {
+  private var size: Int = 0
+  private var alpha: Int = 255
+  private var bitmap: Bitmap? = null
+  private var speedX: Double = 0.0
+  private var speedY: Double = 0.0
+  private var positionX: Double = 0.0
+  private var positionY: Double = 0.0
+
   private val paint by lazy {
     Paint(Paint.ANTI_ALIAS_FLAG).apply {
       color = Color.rgb(255, 255, 255)
-      alpha = this@Snowflake.alpha
       style = Style.FILL
     }
   }
+  private val randomizer by lazy { Randomizer() }
 
   init {
-    calculateSpeed()
+    init()
   }
 
-  fun update(width: Int, height: Int) {
-    var x = position.x + speedX
-    var y = position.y + speedY
-    if (y > height) {
-      calculateSpeed()
-      x = Random().nextInt(width)
-      y = -size - 1
+  private fun init() {
+    size = randomizer.randomInt(params.sizeMinInPx, params.sizeMaxInPx, gaussian = true)
+    if (params.image != null) {
+      bitmap = Bitmap.createScaledBitmap(params.image, size, size, false)
     }
 
-    if (fadingEnabled) {
-      paint.alpha = (alpha * ((height.toFloat() - y.toFloat()) / (height.toFloat()))).toInt()
-    }
+    val speed = ((size - params.sizeMinInPx).toFloat() / (params.sizeMaxInPx - params.sizeMinInPx) *
+        (params.speedMax - params.speedMin) + params.speedMin)
+    val angle = toRadians(randomizer.randomDouble(params.angleMax) * randomizer.randomSignum())
+    speedX = speed * sin(angle)
+    speedY = speed * cos(angle)
 
-    position.set(x, y)
+    alpha = randomizer.randomInt(params.alphaMin, params.alphaMax)
+    paint.alpha = alpha
+
+    positionX = randomizer.randomDouble(params.parentWidth)
+    positionY = randomizer.randomDouble(params.parentHeight)
   }
 
-  fun calculateSpeed() {
-    speedX = (speed * Math.sin(angle())).toInt()
-    speedY = (speed * Math.cos(angle())).toInt()
-    if (speedY == 0) {
-      speedY++
+  fun update() {
+    positionX += speedX
+    positionY += speedY
+    if (positionY > params.parentHeight) {
+      init()
+      positionY = -size.toDouble()
+    }
+    if (params.fadingEnabled) {
+      paint.alpha = (alpha * ((params.parentHeight - positionY).toFloat() / params.parentHeight)).toInt()
     }
   }
 
   fun draw(canvas: Canvas) {
-    canvas.drawCircle(position.x.toFloat(), position.y.toFloat(), size.toFloat(), paint)
+    if (bitmap != null) {
+      canvas.drawBitmap(bitmap, positionX.toFloat(), positionY.toFloat(), paint)
+    } else {
+      canvas.drawCircle(positionX.toFloat(), positionY.toFloat(), size.toFloat(), paint)
+    }
   }
 
-  private fun angle(): Double {
-    val angle = Random().nextInt(30) - 15
-    return Math.toRadians(angle.toDouble())
-  }
+  data class Params(
+      val parentWidth: Int,
+      val parentHeight: Int,
+      val image: Bitmap?,
+      val alphaMin: Int,
+      val alphaMax: Int,
+      val angleMax: Int,
+      val sizeMinInPx: Int,
+      val sizeMaxInPx: Int,
+      val speedMin: Int,
+      val speedMax: Int,
+      val fadingEnabled: Boolean)
 }

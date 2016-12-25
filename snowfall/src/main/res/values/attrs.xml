@@ -19,10 +19,14 @@
 
   <declare-styleable name="SnowfallView">
     <attr name="snowflakesNum" format="integer"/>
-    <attr name="snowflakeSizeMin" format="dimension"/>
-    <attr name="snowflakeSizeMax" format="dimension"/>
+    <attr name="snowflakeImage" format="reference"/>
     <attr name="snowflakeAlphaMin" format="integer"/>
     <attr name="snowflakeAlphaMax" format="integer"/>
+    <attr name="snowflakeAngleMax" format="integer"/>
+    <attr name="snowflakeSizeMin" format="dimension"/>
+    <attr name="snowflakeSizeMax" format="dimension"/>
+    <attr name="snowflakeSpeedMin" format="integer"/>
+    <attr name="snowflakeSpeedMax" format="integer"/>
     <attr name="snowflakeFadingEnabled" format="boolean"/>
   </declare-styleable>
 
