@@ -1,6 +1,7 @@
 Android-Snowfall
 ================
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Android--Snowfall-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/4952)
 [![Release](https://jitpack.io/v/jetradarmobile/android-snowfall.svg)](https://jitpack.io/#jetradarmobile/android-snowfall)
 
 Fully customizable implementation of "Snowfall View" on Android.
