@@ -44,6 +44,9 @@ internal class Snowflake(val params: Params) {
 
   init {
     init()
+    if (!params.alreadyFalling) {
+      positionY = positionY - params.parentHeight - size
+    }
   }
 
   private fun init() {
@@ -96,5 +99,6 @@ internal class Snowflake(val params: Params) {
       val sizeMaxInPx: Int,
       val speedMin: Int,
       val speedMax: Int,
-      val fadingEnabled: Boolean)
+      val fadingEnabled: Boolean,
+      val alreadyFalling: Boolean)
 }

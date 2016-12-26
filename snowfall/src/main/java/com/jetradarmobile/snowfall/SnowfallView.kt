@@ -35,7 +35,8 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
   private val DEFAULT_SNOWFLAKE_SIZE_MAX_IN_DP = 8
   private val DEFAULT_SNOWFLAKE_SPEED_MIN = 2
   private val DEFAULT_SNOWFLAKE_SPEED_MAX = 8
-  private val DEFAULT_SNOWFLAKE_FADING_ENABLED = false
+  private val DEFAULT_SNOWFLAKES_FADING_ENABLED = false
+  private val DEFAULT_SNOWFLAKES_ALREADY_FALLING = false
 
   private val snowflakesNum: Int
   private val snowflakeImage: Bitmap?
@@ -46,7 +47,8 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
   private val snowflakeSizeMaxInPx: Int
   private val snowflakeSpeedMin: Int
   private val snowflakeSpeedMax: Int
-  private val snowflakeFadingEnabled: Boolean
+  private val snowflakesFadingEnabled: Boolean
+  private val snowflakesAlreadyFalling: Boolean
 
   private val snowflakes: MutableList<Snowflake>
   private val updateSnowflakesThread: UpdateSnowflakesThread
@@ -62,17 +64,13 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
     snowflakeSizeMaxInPx = a.getDimensionPixelSize(R.styleable.SnowfallView_snowflakeSizeMax, dpToPx(DEFAULT_SNOWFLAKE_SIZE_MAX_IN_DP))
     snowflakeSpeedMin = a.getInt(R.styleable.SnowfallView_snowflakeSpeedMin, DEFAULT_SNOWFLAKE_SPEED_MIN)
     snowflakeSpeedMax = a.getInt(R.styleable.SnowfallView_snowflakeSpeedMax, DEFAULT_SNOWFLAKE_SPEED_MAX)
-    snowflakeFadingEnabled = a.getBoolean(R.styleable.SnowfallView_snowflakeFadingEnabled, DEFAULT_SNOWFLAKE_FADING_ENABLED)
+    snowflakesFadingEnabled = a.getBoolean(R.styleable.SnowfallView_snowflakesFadingEnabled, DEFAULT_SNOWFLAKES_FADING_ENABLED)
+    snowflakesAlreadyFalling = a.getBoolean(R.styleable.SnowfallView_snowflakesAlreadyFalling, DEFAULT_SNOWFLAKES_ALREADY_FALLING)
     a.recycle()
 
     snowflakes = ArrayList(snowflakesNum)
 
     updateSnowflakesThread = UpdateSnowflakesThread()
-  }
-
-  private fun updateSnowflakes() {
-    updateSnowflakesThread.handler.post { snowflakes.forEach { it.update() } }
-    ViewCompat.postInvalidateOnAnimation(this)
   }
 
   private fun dpToPx(dp: Int): Int {
@@ -87,7 +85,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
         alphaMin = snowflakeAlphaMin, alphaMax = snowflakeAlphaMax, angleMax = snowflakeAngleMax,
         sizeMinInPx = snowflakeSizeMinInPx, sizeMaxInPx = snowflakeSizeMaxInPx,
         speedMin = snowflakeSpeedMin, speedMax = snowflakeSpeedMax,
-        fadingEnabled = snowflakeFadingEnabled)
+        fadingEnabled = snowflakesFadingEnabled, alreadyFalling = snowflakesAlreadyFalling)
     snowflakes.addAll(Array(snowflakesNum, { Snowflake(snowflakeParams) }))
   }
 
@@ -95,6 +93,13 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
     super.onDraw(canvas)
     snowflakes.forEach { it.draw(canvas) }
     updateSnowflakes()
+  }
+
+  private fun updateSnowflakes() {
+    updateSnowflakesThread.handler.post {
+      snowflakes.forEach { it.update() }
+      ViewCompat.postInvalidateOnAnimation(this)
+    }
   }
 
   private inner class UpdateSnowflakesThread() : HandlerThread("SnowflakesComputations") {

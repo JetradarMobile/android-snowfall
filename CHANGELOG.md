@@ -5,8 +5,11 @@ Change Log
 
 _2016-12-26_
 
- * Fixed lags.
+ * Support different start position on y-axis for snowflakes (attr `snowflakesAlreadyFalling`).
+ * Rename attr `snowflakeFadingEnabled` to `snowflakesFadingEnabled`.
+ * Fixed animation lags.
  * Fixed API 15 support.
+
 
 ## Version 1.1.0
 

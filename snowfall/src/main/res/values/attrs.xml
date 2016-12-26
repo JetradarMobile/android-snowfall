@@ -27,7 +27,8 @@
     <attr name="snowflakeSizeMax" format="dimension"/>
     <attr name="snowflakeSpeedMin" format="integer"/>
     <attr name="snowflakeSpeedMax" format="integer"/>
-    <attr name="snowflakeFadingEnabled" format="boolean"/>
+    <attr name="snowflakesFadingEnabled" format="boolean"/>
+    <attr name="snowflakesAlreadyFalling" format="boolean"/>
   </declare-styleable>
 
 </resources>
