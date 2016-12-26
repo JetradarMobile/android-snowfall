@@ -19,6 +19,9 @@ package com.jetradarmobile.snowfall
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.os.Handler
+import android.os.HandlerThread
+import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
 import java.util.ArrayList
@@ -65,7 +68,11 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
     snowflakes = ArrayList(snowflakesNum)
 
     updateSnowflakesThread = UpdateSnowflakesThread()
-    updateSnowflakesThread.start()
+  }
+
+  private fun updateSnowflakes() {
+    updateSnowflakesThread.handler.post { snowflakes.forEach { it.update() } }
+    ViewCompat.postInvalidateOnAnimation(this)
   }
 
   private fun dpToPx(dp: Int): Int {
@@ -87,17 +94,14 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
   override fun onDraw(canvas: Canvas) {
     super.onDraw(canvas)
     snowflakes.forEach { it.draw(canvas) }
+    updateSnowflakes()
   }
 
-  private inner class UpdateSnowflakesThread : Thread() {
-    private val FPS = 10L
+  private inner class UpdateSnowflakesThread() : HandlerThread("SnowflakesComputations") {
+    val handler by lazy { Handler(looper) }
 
-    override fun run() {
-      while (true) {
-        try { Thread.sleep(FPS) } catch (ignored: InterruptedException) {}
-        snowflakes.forEach { it.update() }
-        postInvalidateOnAnimation()
-      }
+    init {
+      start()
     }
   }
 }

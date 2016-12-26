@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+## Version 1.1.1
+
+_2016-12-26_
+
+ * Fixed lags.
+ * Fixed API 15 support.
 
 ## Version 1.1.0
 
