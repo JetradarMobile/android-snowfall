@@ -7,7 +7,9 @@ Android-Snowfall
 
 Fully customizable implementation of "Snowfall View" on Android.
 
-![image](https://raw.githubusercontent.com/JetradarMobile/android-snowfall/master/art/snowfall-demo.gif)
+That's how we use it in our app Hotellook
+
+![image](https://raw.githubusercontent.com/JetradarMobile/android-snowfall/master/art/hotellook-demo.gif)
 
 
 Compatibility
@@ -34,7 +36,7 @@ Add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.jetradarmobile:android-snowfall:1.1.1'
+    compile 'com.github.jetradarmobile:android-snowfall:1.1.2'
 }
 ```
 

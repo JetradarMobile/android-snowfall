@@ -3,7 +3,7 @@ Change Log
 
 ## Version 1.1.2
 
-_In development_
+_2016-12-27_
 
  * Draw optimization.
 
