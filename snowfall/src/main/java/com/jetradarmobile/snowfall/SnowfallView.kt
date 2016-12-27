@@ -24,7 +24,6 @@ import android.os.HandlerThread
 import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
-import java.util.ArrayList
 
 class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs) {
   private val DEFAULT_SNOWFLAKES_NUM = 200
@@ -50,7 +49,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
   private val snowflakesFadingEnabled: Boolean
   private val snowflakesAlreadyFalling: Boolean
 
-  private val snowflakes: MutableList<Snowflake>
+  private lateinit var snowflakes: Array<Snowflake>
   private val updateSnowflakesThread: UpdateSnowflakesThread
 
   init {
@@ -68,8 +67,6 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
     snowflakesAlreadyFalling = a.getBoolean(R.styleable.SnowfallView_snowflakesAlreadyFalling, DEFAULT_SNOWFLAKES_ALREADY_FALLING)
     a.recycle()
 
-    snowflakes = ArrayList(snowflakesNum)
-
     updateSnowflakesThread = UpdateSnowflakesThread()
   }
 
@@ -79,14 +76,13 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
 
   override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
     super.onSizeChanged(w, h, oldw, oldh)
-    snowflakes.clear()
     val snowflakeParams = Snowflake.Params(
         parentWidth = width, parentHeight = height, image = snowflakeImage,
         alphaMin = snowflakeAlphaMin, alphaMax = snowflakeAlphaMax, angleMax = snowflakeAngleMax,
         sizeMinInPx = snowflakeSizeMinInPx, sizeMaxInPx = snowflakeSizeMaxInPx,
         speedMin = snowflakeSpeedMin, speedMax = snowflakeSpeedMax,
         fadingEnabled = snowflakesFadingEnabled, alreadyFalling = snowflakesAlreadyFalling)
-    snowflakes.addAll(Array(snowflakesNum, { Snowflake(snowflakeParams) }))
+    snowflakes = Array(snowflakesNum, { Snowflake(snowflakeParams) })
   }
 
   override fun onDraw(canvas: Canvas) {
