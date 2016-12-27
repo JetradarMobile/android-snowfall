@@ -7,7 +7,7 @@ Android-Snowfall
 
 Fully customizable implementation of "Snowfall View" on Android.
 
-That's how we use it in our app Hotellook
+That's how we use it in our app "Hotellook"
 
 ![image](https://raw.githubusercontent.com/JetradarMobile/android-snowfall/master/art/hotellook-demo.gif)
 
