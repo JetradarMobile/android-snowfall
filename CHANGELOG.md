@@ -8,11 +8,13 @@ _2016-12-28_
  * Snowflakes are reset when visibility changed to GONE.
  * Fixed Android Studio Preview rendering issue.
 
+
 ## Version 1.1.2
 
 _2016-12-27_
 
  * Draw optimization.
+
 
 ## Version 1.1.1
 
