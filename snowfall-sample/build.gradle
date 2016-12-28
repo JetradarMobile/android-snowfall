@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 dependencies {
   compile project(':snowfall')
   compile 'com.android.support:appcompat-v7:25.0.1'
-  compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.5-3'
+  compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.6'
 }
 
 android {
