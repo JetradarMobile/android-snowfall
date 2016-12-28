@@ -43,13 +43,10 @@ internal class Snowflake(val params: Params) {
   private val randomizer by lazy { Randomizer() }
 
   init {
-    init()
-    if (!params.alreadyFalling) {
-      positionY = positionY - params.parentHeight - size
-    }
+    reset()
   }
 
-  private fun init() {
+  internal fun reset(positionY: Double? = null) {
     size = randomizer.randomInt(params.sizeMinInPx, params.sizeMaxInPx, gaussian = true)
     if (params.image != null) {
       bitmap = Bitmap.createScaledBitmap(params.image, size, size, false)
@@ -65,15 +62,21 @@ internal class Snowflake(val params: Params) {
     paint.alpha = alpha
 
     positionX = randomizer.randomDouble(params.parentWidth)
-    positionY = randomizer.randomDouble(params.parentHeight)
+    if (positionY != null) {
+      this.positionY = positionY
+    } else {
+      this.positionY = randomizer.randomDouble(params.parentHeight)
+      if (!params.alreadyFalling) {
+        this.positionY = this.positionY - params.parentHeight - size
+      }
+    }
   }
 
   fun update() {
     positionX += speedX
     positionY += speedY
     if (positionY > params.parentHeight) {
-      init()
-      positionY = -size.toDouble()
+      reset(positionY = -size.toDouble())
     }
     if (params.fadingEnabled) {
       paint.alpha = (alpha * ((params.parentHeight - positionY).toFloat() / params.parentHeight)).toInt()

@@ -36,7 +36,7 @@ Add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.jetradarmobile:android-snowfall:1.1.2'
+    compile 'com.github.jetradarmobile:android-snowfall:1.1.3'
 }
 ```
 
