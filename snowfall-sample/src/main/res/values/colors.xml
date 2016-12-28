@@ -1,7 +1,7 @@
 <resources>
 
-  <color name="colorPrimary">#4278D1</color>
+  <color name="colorPrimary">#4F85DE</color>
   <color name="colorPrimaryDark">#4278D1</color>
-  <color name="colorAccent">#4278D1</color>
+  <color name="colorAccent">#4F85DE</color>
 
 </resources>

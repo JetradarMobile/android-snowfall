@@ -16,6 +16,7 @@
 
 package com.jetradarmobile.snowfall
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -24,6 +25,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.VectorDrawable
 import android.os.Build
 
+@SuppressLint("NewApi")
 internal fun Drawable.toBitmap(): Bitmap {
   return when (this) {
     is BitmapDrawable -> bitmap
