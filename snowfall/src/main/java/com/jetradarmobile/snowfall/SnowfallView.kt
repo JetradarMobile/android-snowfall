@@ -87,6 +87,8 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
 
   override fun onDraw(canvas: Canvas) {
     super.onDraw(canvas)
+    if (isInEditMode)
+      return
     snowflakes.forEach { it.draw(canvas) }
     updateSnowflakes()
   }
