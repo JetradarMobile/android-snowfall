@@ -49,8 +49,8 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
   private val snowflakesFadingEnabled: Boolean
   private val snowflakesAlreadyFalling: Boolean
 
-  private lateinit var snowflakes: Array<Snowflake>
   private val updateSnowflakesThread: UpdateSnowflakesThread
+  private var snowflakes: Array<Snowflake>
 
   init {
     val a = context.obtainStyledAttributes(attrs, R.styleable.SnowfallView)
@@ -70,6 +70,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
       a.recycle()
     }
     updateSnowflakesThread = UpdateSnowflakesThread()
+    snowflakes = emptyArray()
   }
 
   private fun dpToPx(dp: Int): Int {

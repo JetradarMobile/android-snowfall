@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+## Version 1.1.4
+
+_2016-12-28_
+
+ * Fixed crash in case if view has initially visibility GONE.
+
+
 ## Version 1.1.3
 
 _2016-12-28_
