@@ -99,11 +99,18 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
 
   private fun createSnowflakes(): Array<Snowflake> {
     val snowflakeParams = Snowflake.Params(
-        parentWidth = width, parentHeight = height, image = snowflakeImage,
-        alphaMin = snowflakeAlphaMin, alphaMax = snowflakeAlphaMax, angleMax = snowflakeAngleMax,
-        sizeMinInPx = snowflakeSizeMinInPx, sizeMaxInPx = snowflakeSizeMaxInPx,
-        speedMin = snowflakeSpeedMin, speedMax = snowflakeSpeedMax,
-        fadingEnabled = snowflakesFadingEnabled, alreadyFalling = snowflakesAlreadyFalling)
+        parentWidth = width,
+        parentHeight = height,
+        image = snowflakeImage,
+        alphaMin = snowflakeAlphaMin,
+        alphaMax = snowflakeAlphaMax,
+        angleMax = snowflakeAngleMax,
+        sizeMinInPx = snowflakeSizeMinInPx,
+        sizeMaxInPx = snowflakeSizeMaxInPx,
+        speedMin = snowflakeSpeedMin,
+        speedMax = snowflakeSpeedMax,
+        fadingEnabled = snowflakesFadingEnabled,
+        alreadyFalling = snowflakesAlreadyFalling)
     return Array(snowflakesNum, { Snowflake(snowflakeParams) })
   }
 
