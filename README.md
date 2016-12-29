@@ -3,7 +3,7 @@ Android-Snowfall
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Android--Snowfall-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/4952)
 [![Release](https://jitpack.io/v/jetradarmobile/android-snowfall.svg)](https://jitpack.io/#jetradarmobile/android-snowfall)
-[![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=15)
+[![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
 
 Fully customizable implementation of "Snowfall View" on Android.
 
@@ -36,7 +36,7 @@ Add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.jetradarmobile:android-snowfall:1.1.4'
+    compile 'com.github.jetradarmobile:android-snowfall:1.1.5'
 }
 ```
 

@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+## Version 1.1.5
+
+_2016-12-29_
+
+ * Changed min API level to 16 (Android 4.1).
+
+
 ## Version 1.1.4
 
 _2016-12-28_

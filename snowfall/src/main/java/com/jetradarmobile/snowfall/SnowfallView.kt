@@ -21,7 +21,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Handler
 import android.os.HandlerThread
-import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
 
@@ -118,7 +117,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
   private fun updateSnowflakes() {
     updateSnowflakesThread.handler.post {
       snowflakes.forEach { it.update() }
-      ViewCompat.postInvalidateOnAnimation(this)
+      postInvalidateOnAnimation()
     }
   }
 

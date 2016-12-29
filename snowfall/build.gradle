@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 dependencies {
-  compile 'com.android.support:support-compat:25.0.1'
   compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.6'
 }
 
@@ -11,6 +10,6 @@ android {
   buildToolsVersion "25.0.2"
 
   defaultConfig {
-    minSdkVersion 15
+    minSdkVersion 16
   }
 }
