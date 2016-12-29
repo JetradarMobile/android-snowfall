@@ -49,7 +49,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
   private val snowflakesAlreadyFalling: Boolean
 
   private val updateSnowflakesThread: UpdateSnowflakesThread
-  private var snowflakes: Array<Snowflake>
+  private var snowflakes: Array<Snowflake>? = null
 
   init {
     val a = context.obtainStyledAttributes(attrs, R.styleable.SnowfallView)
@@ -69,7 +69,6 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
       a.recycle()
     }
     updateSnowflakesThread = UpdateSnowflakesThread()
-    snowflakes = emptyArray()
   }
 
   private fun dpToPx(dp: Int): Int {
@@ -84,7 +83,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
   override fun onVisibilityChanged(changedView: View, visibility: Int) {
     super.onVisibilityChanged(changedView, visibility)
     if (changedView === this && visibility == GONE) {
-      snowflakes.forEach { it.reset() }
+      snowflakes?.forEach { it.reset() }
     }
   }
 
@@ -93,7 +92,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
     if (isInEditMode) {
       return
     }
-    snowflakes.forEach { it.draw(canvas) }
+    snowflakes?.forEach { it.draw(canvas) }
     updateSnowflakes()
   }
 
@@ -116,7 +115,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
 
   private fun updateSnowflakes() {
     updateSnowflakesThread.handler.post {
-      snowflakes.forEach { it.update() }
+      snowflakes?.forEach { it.update() }
       postInvalidateOnAnimation()
     }
   }
