@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+## Version 1.1.6
+
+_2016-12-29_
+
+ * Fix support Android 4.3 and below (issue with `onVisibilityChanged`).
+
+
 ## Version 1.1.5
 
 _2016-12-29_

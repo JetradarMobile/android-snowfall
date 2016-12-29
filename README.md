@@ -15,7 +15,7 @@ That's how we use it in our app "Hotellook"
 Compatibility
 -------------
 
-This library is compatible from API 15 (Android 4.0.3).
+This library is compatible from API 16 (Android 4.1).
 
 
 Download
@@ -36,7 +36,7 @@ Add the dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.jetradarmobile:android-snowfall:1.1.5'
+    compile 'com.github.jetradarmobile:android-snowfall:1.1.6'
 }
 ```
 
