@@ -1,10 +1,13 @@
 buildscript {
+  project.ext {
+    kotlinVersion = '1.1.0'
+  }
   repositories {
     jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.3.0-beta1'
-    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.6'
+    classpath 'com.android.tools.build:gradle:2.3.0'
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
   }
 }
 
@@ -12,6 +15,13 @@ allprojects {
   repositories {
     jcenter()
   }
+}
+
+ext {
+  compileSdkVersion = 25
+  buildToolsVersion = '25.0.2'
+  targetSdkVersion = compileSdkVersion
+  minSdkVersion = 16
 }
 
 task clean(type: Delete) {
