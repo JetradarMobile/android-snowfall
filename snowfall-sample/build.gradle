@@ -1,21 +1,21 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
-dependencies {
-  compile project(':snowfall')
-  compile "com.android.support:appcompat-v7:$supportLibVersion"
-  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-}
-
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
+  compileSdkVersion versions.compileSdk
+  buildToolsVersion versions.buildTools
 
   defaultConfig {
     applicationId "com.jetradarmobile.snowfall.sample"
-    minSdkVersion 16
-    targetSdkVersion 25
+    minSdkVersion versions.minSdk
+    targetSdkVersion versions.targetSdk
     versionCode 1
     versionName "1.0"
   }
+}
+
+dependencies {
+  compile project(':snowfall')
+  compile "com.android.support:appcompat-v7:$versions.supportLibrary"
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 }
