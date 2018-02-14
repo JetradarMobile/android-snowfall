@@ -48,7 +48,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
   private val snowflakesFadingEnabled: Boolean
   private val snowflakesAlreadyFalling: Boolean
 
-  private val updateSnowflakesThread: UpdateSnowflakesThread
+  private lateinit var updateSnowflakesThread: UpdateSnowflakesThread
   private var snowflakes: Array<Snowflake>? = null
 
   init {
@@ -68,7 +68,17 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
     } finally {
       a.recycle()
     }
+
+  }
+
+  override fun onAttachedToWindow() {
+    super.onAttachedToWindow()
     updateSnowflakesThread = UpdateSnowflakesThread()
+  }
+
+  override fun onDetachedFromWindow() {
+    updateSnowflakesThread.quit()
+    super.onDetachedFromWindow()
   }
 
   private fun dpToPx(dp: Int): Int {
@@ -120,7 +130,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
     }
   }
 
-  private inner class UpdateSnowflakesThread : HandlerThread("SnowflakesComputations") {
+  private class UpdateSnowflakesThread : HandlerThread("SnowflakesComputations") {
     val handler by lazy { Handler(looper) }
 
     init {
