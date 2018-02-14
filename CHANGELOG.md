@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+## Version 1.2.0
+
+_2018-02-14_
+
+ * Added ability to stop snowfall without making it disappear.
+ * Fixed memory leak related to inner HandlerThread.
+
+
 ## Version 1.1.6
 
 _2016-12-29_
