@@ -102,8 +102,22 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
     if (isInEditMode) {
       return
     }
-    snowflakes?.forEach { it.draw(canvas) }
-    updateSnowflakes()
+    val fallingSnowflakes = snowflakes?.filter { it.isStillFalling() }
+    if (fallingSnowflakes?.isNotEmpty() == true) {
+      fallingSnowflakes.forEach { it.draw(canvas) }
+      updateSnowflakes()
+    }
+    else {
+      visibility = GONE
+    }
+  }
+
+  fun stopFalling() {
+    snowflakes?.forEach { it.shouldRecycleFalling = false }
+  }
+
+  fun restartFalling() {
+    snowflakes?.forEach { it.shouldRecycleFalling = true }
   }
 
   private fun createSnowflakes(): Array<Snowflake> {
@@ -124,9 +138,12 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
   }
 
   private fun updateSnowflakes() {
-    updateSnowflakesThread.handler.post {
-      snowflakes?.forEach { it.update() }
-      postInvalidateOnAnimation()
+    val fallingSnowflakes = snowflakes?.filter { it.isStillFalling() }
+    if (fallingSnowflakes?.isNotEmpty() == true) {
+      updateSnowflakesThread.handler.post {
+        fallingSnowflakes.forEach { it.update() }
+        postInvalidateOnAnimation()
+      }
     }
   }
 
