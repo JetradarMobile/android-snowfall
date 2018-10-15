@@ -21,6 +21,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Paint.Style
+import android.util.LruCache
 import java.lang.Math.cos
 import java.lang.Math.sin
 import java.lang.Math.toRadians
@@ -54,6 +55,8 @@ internal class Snowflake(val params: Params) {
     size = randomizer.randomInt(params.sizeMinInPx, params.sizeMaxInPx, gaussian = true)
     if (params.image != null) {
       bitmap = Bitmap.createScaledBitmap(params.image, size, size, false)
+    } else if (params.images != null) {
+      bitmap = Bitmap.createScaledBitmap(params.images.get(randomizer.randomInt(0, params.images.putCount() - 1)), size, size, false)
     }
 
     val speed = ((size - params.sizeMinInPx).toFloat() / (params.sizeMaxInPx - params.sizeMinInPx) *
@@ -113,6 +116,7 @@ internal class Snowflake(val params: Params) {
       val parentWidth: Int,
       val parentHeight: Int,
       val image: Bitmap?,
+      val images: LruCache<Int, Bitmap>?,
       val alphaMin: Int,
       val alphaMax: Int,
       val angleMax: Int,

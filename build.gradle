@@ -6,7 +6,7 @@ buildscript {
       'minSdk'        : 16,
       'targetSdk'     : 27,
 
-      'kotlin'        : '1.2.21',
+      'kotlin'        : '1.2.71',
       'supportLibrary': '27.0.2'
   ]
 

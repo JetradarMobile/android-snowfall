@@ -22,6 +22,7 @@ import android.graphics.Canvas
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.AttributeSet
+import android.util.LruCache
 import android.view.View
 
 class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs) {
@@ -38,6 +39,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
 
   private val snowflakesNum: Int
   private val snowflakeImage: Bitmap?
+  private val snowflakeImages: LruCache<Int, Bitmap>?
   private val snowflakeAlphaMin: Int
   private val snowflakeAlphaMax: Int
   private val snowflakeAngleMax: Int
@@ -55,7 +57,6 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
     val a = context.obtainStyledAttributes(attrs, R.styleable.SnowfallView)
     try {
       snowflakesNum = a.getInt(R.styleable.SnowfallView_snowflakesNum, DEFAULT_SNOWFLAKES_NUM)
-      snowflakeImage = a.getDrawable(R.styleable.SnowfallView_snowflakeImage)?.toBitmap()
       snowflakeAlphaMin = a.getInt(R.styleable.SnowfallView_snowflakeAlphaMin, DEFAULT_SNOWFLAKE_ALPHA_MIN)
       snowflakeAlphaMax = a.getInt(R.styleable.SnowfallView_snowflakeAlphaMax, DEFAULT_SNOWFLAKE_ALPHA_MAX)
       snowflakeAngleMax = a.getInt(R.styleable.SnowfallView_snowflakeAngleMax, DEFAULT_SNOWFLAKE_ANGLE_MAX)
@@ -65,6 +66,34 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
       snowflakeSpeedMax = a.getInt(R.styleable.SnowfallView_snowflakeSpeedMax, DEFAULT_SNOWFLAKE_SPEED_MAX)
       snowflakesFadingEnabled = a.getBoolean(R.styleable.SnowfallView_snowflakesFadingEnabled, DEFAULT_SNOWFLAKES_FADING_ENABLED)
       snowflakesAlreadyFalling = a.getBoolean(R.styleable.SnowfallView_snowflakesAlreadyFalling, DEFAULT_SNOWFLAKES_ALREADY_FALLING)
+
+      snowflakeImage = a.getDrawable(R.styleable.SnowfallView_snowflakeImage)?.toBitmap()
+      snowflakeImages = run {
+        val drawableArray = a.getResourceId(R.styleable.SnowfallView_snowflakeImages, -1)
+        if (drawableArray != -1) {
+          val typedArray = a.resources.obtainTypedArray(drawableArray)
+          val maxMemory = (Runtime.getRuntime().maxMemory() / 1024).toInt()
+          val cacheSize = maxMemory / 8
+          val bitmapsCache = object : LruCache<Int, Bitmap>(cacheSize) {
+            override fun sizeOf(key: Int, value: Bitmap): Int {
+              return value.byteCount / 1024
+            }
+            override fun create(key: Int): Bitmap {
+              val newTypedArray = resources.obtainTypedArray(drawableArray)
+              val bitmap = newTypedArray.getDrawable(key).toBitmap()
+              newTypedArray.recycle()
+              return bitmap
+            }
+          }
+          for (i in 0 until typedArray.length()) {
+            bitmapsCache.put(i, typedArray.getDrawable(i).toBitmap())
+          }
+          typedArray.recycle()
+          bitmapsCache
+        } else {
+          null
+        }
+      }
     } finally {
       a.recycle()
     }
@@ -125,6 +154,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
         parentWidth = width,
         parentHeight = height,
         image = snowflakeImage,
+        images = snowflakeImages,
         alphaMin = snowflakeAlphaMin,
         alphaMax = snowflakeAlphaMax,
         angleMax = snowflakeAngleMax,
@@ -134,7 +164,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
         speedMax = snowflakeSpeedMax,
         fadingEnabled = snowflakesFadingEnabled,
         alreadyFalling = snowflakesAlreadyFalling)
-    return Array(snowflakesNum, { Snowflake(snowflakeParams) })
+    return Array(snowflakesNum) { Snowflake(snowflakeParams) }
   }
 
   private fun updateSnowflakes() {
