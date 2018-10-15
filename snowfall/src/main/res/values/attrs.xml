@@ -20,6 +20,7 @@
   <declare-styleable name="SnowfallView">
     <attr name="snowflakesNum" format="integer"/>
     <attr name="snowflakeImage" format="reference"/>
+    <attr name="snowflakeImages" format="reference"/>
     <attr name="snowflakeAlphaMin" format="integer"/>
     <attr name="snowflakeAlphaMax" format="integer"/>
     <attr name="snowflakeAngleMax" format="integer"/>

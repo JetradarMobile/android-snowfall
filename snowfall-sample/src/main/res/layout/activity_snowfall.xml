@@ -20,6 +20,6 @@
       app:snowflakeSpeedMax="12"
       app:snowflakesFadingEnabled="true"
       app:snowflakesAlreadyFalling="false"
-      app:snowflakeImage="@drawable/snowflake"/>
+      app:snowflakeImages="@array/snowflakes"/>
 
 </FrameLayout>
