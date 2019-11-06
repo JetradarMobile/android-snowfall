@@ -5,9 +5,10 @@ android {
     compileSdkVersion versions.compileSdk
 
     defaultConfig {
-        applicationId "com.jetradarmobile.snowfall.sample"
+        applicationId "com.snowfall.sample"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
+
         versionCode 1
         versionName "1.0"
     }
@@ -15,6 +16,6 @@ android {
 
 dependencies {
     implementation project(':snowfall')
-    implementation "com.android.support:appcompat-v7:$versions.supportLibrary"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+    implementation "androidx.appcompat:appcompat:1.1.0"
 }
