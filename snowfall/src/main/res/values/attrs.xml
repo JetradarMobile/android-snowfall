@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2016 JetRadar
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,19 +16,18 @@
 
 <resources>
 
-  <declare-styleable name="SnowfallView">
-    <attr name="snowflakesNum" format="integer"/>
-    <attr name="snowflakeImage" format="reference"/>
-    <attr name="snowflakeImages" format="reference"/>
-    <attr name="snowflakeAlphaMin" format="integer"/>
-    <attr name="snowflakeAlphaMax" format="integer"/>
-    <attr name="snowflakeAngleMax" format="integer"/>
-    <attr name="snowflakeSizeMin" format="dimension"/>
-    <attr name="snowflakeSizeMax" format="dimension"/>
-    <attr name="snowflakeSpeedMin" format="integer"/>
-    <attr name="snowflakeSpeedMax" format="integer"/>
-    <attr name="snowflakesFadingEnabled" format="boolean"/>
-    <attr name="snowflakesAlreadyFalling" format="boolean"/>
-  </declare-styleable>
-
+    <declare-styleable name="SnowfallView">
+        <attr name="snowflakesNum" format="integer" />
+        <attr name="snowflakeImage" format="reference" />
+        <attr name="snowflakeImages" format="reference" />
+        <attr name="snowflakeAlphaMin" format="integer" />
+        <attr name="snowflakeAlphaMax" format="integer" />
+        <attr name="snowflakeAngleMax" format="integer" />
+        <attr name="snowflakeSizeMin" format="dimension" />
+        <attr name="snowflakeSizeMax" format="dimension" />
+        <attr name="snowflakeSpeedMin" format="integer" />
+        <attr name="snowflakeSpeedMax" format="integer" />
+        <attr name="snowflakesFadingEnabled" format="boolean" />
+        <attr name="snowflakesAlreadyFalling" format="boolean" />
+    </declare-styleable>
 </resources>

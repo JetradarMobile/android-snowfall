@@ -49,7 +49,7 @@ Usage
 Default implementation with round snowflakes:
 
 ```xml
-<com.jetradarmobile.snowfall.SnowfallView
+<com.snowfall.SnowfallView
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
 ```
@@ -57,7 +57,7 @@ Default implementation with round snowflakes:
 Fully customized implementation:
 
 ```xml
-<com.jetradarmobile.snowfall.SnowfallView
+<com.snowfall.SnowfallView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       app:snowflakesNum="250"

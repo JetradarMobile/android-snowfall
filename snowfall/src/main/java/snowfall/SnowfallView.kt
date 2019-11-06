@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 JetRadar
+ * Modifications Copyright (C) 2019 Rojan Thomas
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.jetradarmobile.snowfall
+package snowfall
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -26,8 +27,9 @@ import android.util.AttributeSet
 import android.util.LruCache
 import android.view.View
 import androidx.core.content.res.use
+import com.snowfall.R
 
-internal class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs) {
+class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     private val snowflakesNum: Int
     private val snowflakeImage: Bitmap?
