@@ -1,15 +1,15 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
-  compileSdkVersion versions.compileSdk
-  buildToolsVersion versions.buildTools
+    compileSdkVersion versions.compileSdk
 
-  defaultConfig {
-    minSdkVersion versions.minSdk
-  }
+    defaultConfig {
+        minSdkVersion versions.minSdk
+    }
 }
 
 dependencies {
-  compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+    implementation "androidx.core:core-ktx:$versions.androidXCoreKtx"
 }
