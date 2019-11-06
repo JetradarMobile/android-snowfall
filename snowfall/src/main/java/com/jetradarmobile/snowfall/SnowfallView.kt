@@ -118,6 +118,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
 
   fun restartFalling() {
     snowflakes?.forEach { it.shouldRecycleFalling = true }
+    visibility = VISIBLE
   }
 
   private fun createSnowflakes(): Array<Snowflake> {
@@ -134,7 +135,7 @@ class SnowfallView(context: Context, attrs: AttributeSet) : View(context, attrs)
         speedMax = snowflakeSpeedMax,
         fadingEnabled = snowflakesFadingEnabled,
         alreadyFalling = snowflakesAlreadyFalling)
-    return Array(snowflakesNum, { Snowflake(snowflakeParams) })
+    return Array(snowflakesNum) { Snowflake(snowflakeParams) }
   }
 
   private fun updateSnowflakes() {

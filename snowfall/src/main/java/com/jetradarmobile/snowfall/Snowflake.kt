@@ -43,7 +43,7 @@ internal class Snowflake(val params: Params) {
   private val randomizer by lazy { Randomizer() }
 
   var shouldRecycleFalling = true
-  private var stopped = false;
+  private var stopped = false
 
   init {
     reset()
@@ -93,7 +93,7 @@ internal class Snowflake(val params: Params) {
         }
       } else {
         positionY = params.parentHeight + size.toDouble()
-        stopped = true;
+        stopped = true
       }
     }
     if (params.fadingEnabled) {
