@@ -16,11 +16,13 @@
 
 package com.jetradarmobile.snowfall
 
-import java.lang.Math.abs
 import java.util.Random
+import kotlin.math.abs
 
 internal class Randomizer {
-  private val random by lazy { Random() }
+
+  // No need in random instance to be lazy
+  private val random = Random(System.currentTimeMillis())
 
   fun randomDouble(max: Int): Double {
     return random.nextDouble() * (max + 1)
@@ -31,10 +33,10 @@ internal class Randomizer {
   }
 
   fun randomInt(max: Int, gaussian: Boolean = false): Int {
-    if (gaussian) {
-      return (abs(randomGaussian()) * (max + 1)).toInt()
+    return if (gaussian) {
+      (abs(randomGaussian()) * (max + 1)).toInt()
     } else {
-      return random.nextInt(max + 1)
+      random.nextInt(max + 1)
     }
   }
 
