@@ -1,25 +1,24 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_snowfall"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.jetradarmobile.snowfall.sample.SnowfallActivity">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/activity_snowfall"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context="com.jetradarmobile.snowfall.sample.SnowfallActivity">
 
   <com.jetradarmobile.snowfall.SnowfallView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:snowflakesNum="250"
-      app:snowflakeAlphaMin="150"
-      app:snowflakeAlphaMax="255"
-      app:snowflakeAngleMax="5"
-      app:snowflakeSizeMin="8dp"
-      app:snowflakeSizeMax="32dp"
-      app:snowflakeSpeedMin="4"
-      app:snowflakeSpeedMax="12"
-      app:snowflakesFadingEnabled="true"
-      app:snowflakesAlreadyFalling="false"
-      app:snowflakeImage="@drawable/snowflake"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:snowflakeAlphaMax="255"
+    app:snowflakeAlphaMin="150"
+    app:snowflakeAngleMax="5"
+    app:snowflakeImage="@drawable/snowflake"
+    app:snowflakeSizeMax="32dp"
+    app:snowflakeSizeMin="8dp"
+    app:snowflakeSpeedMax="12"
+    app:snowflakeSpeedMin="4"
+    app:snowflakesAlreadyFalling="false"
+    app:snowflakesFadingEnabled="true"
+    app:snowflakesNum="250" />
 
 </FrameLayout>
