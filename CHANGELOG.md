@@ -1,6 +1,17 @@
 Change Log
 ==========
 
+## Version 1.2.1
+
+_2020-12-25_
+
+ * Remove lazy accessors for fields. They are adding extra overhead in terms of memory and they are way too heavy for one threaded environment complex for Android world.
+ * Remove kotlin stdlib methods in onDraw. They are just adding extra allocations while trying to draw on Android canvas.
+ * Some code overall clean up.
+ * Migrate sample to AndroidX.
+ * Update dependencies for Kotlin and plugins.
+
+
 ## Version 1.2.0
 
 _2018-02-14_
